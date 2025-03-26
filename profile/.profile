@@ -18,17 +18,23 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH=$PATH:/usr/local/go/bin
-
+# Add go path 
+if [ -f "/usr/local/go/bin" ]; then
+    if [ -d "/usr/local/go/bin" ]; then
+        export PATH=$PATH:/usr/local/go/bin
+    fi
+fi
 
 # Added by Toolbox App
-export PATH="$PATH:/home/luc/.local/share/JetBrains/Toolbox/scripts"
+if [ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ] ; then
+    export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
+fi
 
