@@ -98,6 +98,6 @@ fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 # Shell integrations
 eval "$(/home/luc/.local/bin/zoxide init zsh)"
 
-source .profile
+source ~/.profile
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
