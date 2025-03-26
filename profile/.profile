@@ -8,33 +8,26 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+# If running bash, source .bashrc if it exists and is readable
+if [[ -n "$BASH_VERSION" && -r "$HOME/.bashrc" ]]; then
+    . "$HOME/.bashrc"
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
+# Add user's private bin to PATH if it exists and is not already included
+if [[ -d "$HOME/bin" && ":$PATH:" != *":$HOME/bin:"* ]]; then
     export PATH="$HOME/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
+if [[ -d "$HOME/.local/bin" && ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Add go path 
-if [ -f "/usr/local/go/bin" ]; then
-    if [ -d "/usr/local/go/bin" ]; then
-        export PATH=$PATH:/usr/local/go/bin
-    fi
+# Add Go binary path if it exists and is not already included
+if [[ -d "/usr/local/go/bin" && ":$PATH:" != *":/usr/local/go/bin:"* ]]; then
+    export PATH="$PATH:/usr/local/go/bin"
 fi
 
-# Added by Toolbox App
-if [ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ] ; then
+# Add JetBrains Toolbox scripts path if it exists and is not already included
+if [[ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" && ":$PATH:" != *":$HOME/.local/share/JetBrains/Toolbox/scripts:"* ]]; then
     export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 fi
-
